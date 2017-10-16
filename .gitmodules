@@ -1,0 +1,18 @@
+[submodule "MGDO"]
+	path = MGDO
+	url = git@github.com:mppmu/MGDO.git
+[submodule "GELATIO"]
+	path = GELATIO
+	url = git@github.com:mppmu/GELATIO.git
+[submodule "gerda-ada"]
+	path = gerda-ada
+	url = git@github.com:mppmu/gerda-ada.git
+[submodule "MaGe"]
+	path = MaGe
+	url = git@github.com:mppmu/MaGe.git
+[submodule "databricxx"]
+	path = databricxx
+	url = git@github.com:databricxx/databricxx.git
+[submodule "local-env-skeleton"]
+	path = local-env-skeleton
+	url = git@github.com:luigipertoldi/local-env-skeleton.git

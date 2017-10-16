@@ -119,9 +119,19 @@ RUN ./configure --prefix="/opt/gerdasw" \
 
 # install dotfiles
 
-#COPY local-env-skeleton /root/local-env-skeleton
-#WORKDIR /root/local-env-skeleton
-#RUN ./install-sh
+COPY local-env-skeleton /root/local-env-skeleton
+WORKDIR /root/local-env-skeleton
+RUN ./install-sh
 
 WORKDIR /root
+RUN sed 's/.*TERM/#&/' .zshenv \
+	&& sed 's/.*EDITOR/#&/' .zshenv \
+	&& rm .gitconfig \
+	&& sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc \
+	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc \
+	&& sed -i '/ZSH_THEME/c\ZSH_THEME=pygmalion' .zshrc \
+	&& sed 's/COMPLETION_WAITING_DOTS//' .zshrc \
+	&& sed '/$ZSH\/oh-my-zsh.sh/s/#//g' .zshrc \
+	&& sed '/plugins=(/s/#//g' .zshrc
+
 CMD /bin/zsh

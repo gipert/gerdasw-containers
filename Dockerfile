@@ -14,12 +14,6 @@ RUN yum install -y epel-release deltarpm \
 		libzip-devel mesa-libGLU-devel \
 		libjpeg-devel libpng-devel
 
-#RUN mkdir -p ranger \
-#	&& wget -O- http://nongnu.org/ranger/ranger-stable.tar.gz \
-#	| tar --strip-components 1 -xz -C "ranger" \
-#	&& cd ranger && make install \
-#	&& cd .. && rm -rf ranger
-
 RUN dbus-uuidgen > /etc/machine-id
 
 # install ROOT CERN from precompiled binary

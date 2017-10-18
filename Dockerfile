@@ -126,6 +126,7 @@ RUN ./install-sh
 WORKDIR /root
 RUN rm .gitconfig \
 	&& sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc \
-	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc
+	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc \
+	&& rm -rf local-env-skeleton MGDO
 
 CMD /bin/zsh

@@ -89,7 +89,7 @@ RUN mkdir -p /opt/gerdasw \
 	&& make -j"$(nproc)" || true \
 	&& make -j"$(nproc)" || true \
 	&& make && make install \
-	&& cd /root && rm -rf /root/MGDO
+	&& rm -rf /root/MGDO
 
 # make the software visible
 
@@ -125,7 +125,8 @@ RUN ./configure --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" || true \
 	&& make && make install \
 	&& cp -r gerdageometry /opt/gerdasw/share/gerdageometry \
-	&& cd /root && rm -rf /root/MaGe
+	&& rm -rf /root/MaGe
+
 ENV MGGERDAGEOMETRY="/opt/gerdasw/share/gerdageometry"
 
 # install dotfiles
@@ -135,10 +136,8 @@ WORKDIR /root/local-env-skeleton
 RUN ./install-sh
 
 WORKDIR /root
-RUN rm .gitconfig \
+RUN rm -rf .gitconfig local-env-skeleton \
 	&& sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc \
-	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc \
-	&& sed -i '29 i POWERLEVEL9K_HOST_TEMPLATE="gerda-sw"' .zshrc \
-	&& rm -rf /root/local-env-skeleton
+	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc
 
 CMD /bin/zsh

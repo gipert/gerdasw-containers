@@ -115,7 +115,9 @@ COPY MaGe /root/MaGe
 WORKDIR /root/MaGe
 RUN ./configure --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" || true && make -j"$(nproc)" || true && make && make install \
+	&& cp -r gerdageometry /opt/gerdasw/share/gerdageometry \
 	&& cd /root && rm -rf MaGe
+ENV MGGERDAGEOMETRY="/opt/gerdasw/share/gerdageometry"
 
 # install dotfiles
 

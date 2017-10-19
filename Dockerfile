@@ -83,10 +83,13 @@ RUN mkdir -p /opt/geant4 \
 
 COPY MGDO /root/MGDO
 WORKDIR /root/MGDO
-RUN mkdir -p /opt/gerdasw \\
+RUN mkdir -p /opt/gerdasw \
 	&& ./configure --enable-tam --enable-streamers --prefix="/opt/gerdasw"\
-	&& make -j"$(nproc)" || true && make -j"$(nproc)" || true && make && make install \
-	&& cd /root && rm -rf MGDO
+	&& make -j"$(nproc)" || true \
+	&& make -j"$(nproc)" || true \
+	&& make -j"$(nproc)" || true \
+	&& make && make install \
+	&& cd /root && rm -rf /root/MGDO
 
 # make the software visible
 
@@ -96,27 +99,33 @@ ENV PATH="/opt/gerdasw/bin:$PATH" \
 COPY GELATIO /root/GELATIO
 WORKDIR /root/GELATIO
 RUN ./configure --prefix="/opt/gerdasw"\
-	&& make -j"$(nproc)" || true && make -j"$(nproc)" || true && make && make install \
-	&& cd /root && rm -rf GELATIO
+	&& make -j"$(nproc)" || true \
+	&& make -j"$(nproc)" || true \
+	&& make -j"$(nproc)" || true \
+	&& make && make install \
+	&& cd /root && rm -rf /root/GELATIO
 
 COPY databricxx /root/databricxx
 WORKDIR /root/databricxx
 RUN ./autogen.sh && ./configure --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" && make install \
-	&& cd /root && rm -rf databricxx
+	&& cd /root && rm -rf /root/databricxx
 
 COPY gerda-ada /root/gerda-ada
 WORKDIR /root/gerda-ada
 RUN ./autogen.sh && ./configure --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" && make install \
-	&& cd /root && rm -rf gerda-ada
+	&& cd /root && rm -rf /root/gerda-ada
 
 COPY MaGe /root/MaGe
 WORKDIR /root/MaGe
 RUN ./configure --prefix="/opt/gerdasw" \
-	&& make -j"$(nproc)" || true && make -j"$(nproc)" || true && make && make install \
+	&& make -j"$(nproc)" || true \
+	&& make -j"$(nproc)" || true \
+	&& make -j"$(nproc)" || true \
+	&& make && make install \
 	&& cp -r gerdageometry /opt/gerdasw/share/gerdageometry \
-	&& cd /root && rm -rf MaGe
+	&& cd /root && rm -rf /root/MaGe
 ENV MGGERDAGEOMETRY="/opt/gerdasw/share/gerdageometry"
 
 # install dotfiles
@@ -129,6 +138,7 @@ WORKDIR /root
 RUN rm .gitconfig \
 	&& sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc \
 	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc \
-	&& rm -rf local-env-skeleton MGDO
+	&& sed -i '29 i POWERLEVEL9K_HOST_TEMPLATE="gerda-sw"' .zshrc \
+	&& rm -rf /root/local-env-skeleton
 
 CMD /bin/zsh

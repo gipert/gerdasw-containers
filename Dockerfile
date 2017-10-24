@@ -128,7 +128,7 @@ RUN ./configure --prefix="/opt/gerdasw" \
 	&& rm -rf /root/MaGe
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \
-	MGGERDAGEOMETRY="/opt/gerdasw/share/gerdageometry" \
+	MGGERDAGEOMETRY="/common/sw-other/gerdageometry" \
 	MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
 
 # install dotfiles

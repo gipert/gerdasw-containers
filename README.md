@@ -35,4 +35,4 @@ $ sudo docker run \
   gerda-sw <...>
 ```
 ### Enable X11 forwarding
-work in progress...
+HELP WANTED

@@ -42,10 +42,10 @@ $ ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 ```
 Then add your IP adress to the list allowed to make connections to the X server using `xhost`:
 ```shell
-$ xhost +$(ip)
+$ xhost +$ip
 ```
 Finally run the container setting the correct `DISPLAY` variable, for example to launch `interface` run:
 ```shell
-$ docker run -e DISPLAY=$(ip):0 gerda-sw interface
+$ docker run -e DISPLAY=$ip:0 gerda-sw interface
 ```
-**N.B.**: the `xhost +$(ip)` instruction grants access to the X server for the specified `ip` address. This could expose your system to security holes if, for example, your IP address gets renewed or you switch network and forget to remove the old IP from the `xhost` list. Be sure to keep your `xhost` list clean!
+**N.B.**: the `xhost +$ip` instruction grants access to the X server for the specified `ip` address. This could expose your system to security holes if, for example, your IP address gets renewed or you switch network and forget to remove the old IP from the `xhost` list. Be sure to keep your `xhost` list clean!

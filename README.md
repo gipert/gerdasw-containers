@@ -48,4 +48,4 @@ Finally run the container setting the correct `DISPLAY` variable, for example to
 ```shell
 $ docker run -e DISPLAY=$ip:0 gerda-sw interface
 ```
-**N.B.**: the `xhost +$ip` instruction grants access to the X server for the specified `ip` address. This could expose your system to security holes if, for example, your IP address gets renewed or you switch network and forget to remove the old IP from the `xhost` list. Be sure to keep your `xhost` list clean using `xhost -[name]`!
+**N.B.**: the `xhost +$ip` instruction grants access to the X server for the specified `ip` address. This could expose your system to security holes if, for example, your IP address gets renewed or you switch network and forget to remove the old IP from the `xhost` list. Take care of your `xhost` list by cleaning it from untrusted IPs (use `xhost -[name]`)!

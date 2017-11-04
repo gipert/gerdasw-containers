@@ -124,7 +124,6 @@ RUN ./configure --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" || true \
 	&& make -j"$(nproc)" || true \
 	&& make && make install \
-	&& cp -r gerdageometry /opt/gerdasw/share/gerdageometry \
 	&& rm -rf /root/MaGe
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \

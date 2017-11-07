@@ -15,7 +15,6 @@ From: centos:7
     SOURCE_REPO https://github.com/luigipertoldi/gerdasw-containers
 
 %post
-
     yum update -y
     yum groupinstall -y "Development Tools"
     yum install -y htop zsh vim wget cmake \
@@ -26,23 +25,23 @@ From: centos:7
     yum clean all
 
 %runscript
-
     if [ $# -eq 0 ]; then
-        echo -e "\nThe following software is installed in this image:\n\n"
+        echo -e "\nThe following software is installed in this image:\n"
         ls /scif/apps | sort -u --ignore-case
-        echo -e "\n\nExample usage:\n\n    $ singularity run --app <app-name> <image>\n\n"
-        echo -e "Run 'singularity help' for other singularity commands.\n\n"
+        echo -e "\nExample usage:\n\n    $ singularity run --app <app-name> <image>\n"
+        echo -e "Run 'singularity help' for other singularity commands.\n"
     else
         exec "$@"
     fi
 
 %help
-
-    > This container includes a basic installation of the GERDA software, run
-    >
-    >    $ singularity apps <container>
-    >
-    > to see what's included! For specific help use the --app flag.
+>
+> This container includes a basic installation of the GERDA software, run
+>
+>     $ singularity apps <container>
+>
+> to see what's included! For specific help use the --app flag.
+>
 
 %files
     MGDO       /tmp/MGDO
@@ -56,6 +55,7 @@ From: centos:7
 #############
 
 %apphelp root
+    >
     > ROOT - Data Analysis Framework (https://root.cern.ch)
     >
     > Precompiled version for CentOS Cern 7 gcc4.8
@@ -63,6 +63,7 @@ From: centos:7
     >
     > To launch a ROOT session:
     > $ singularity --app root <image>
+    >
 
 %appenv root
     export ROOTSYS="/scif/apps/root"
@@ -135,10 +136,12 @@ From: centos:7
 ########
 
 %apphelp MGDO
+    >
     > MGDO - Majorana GERDA Data Objects (https://github.com/mppmu/mgdo)
     >
     > To list the available executables run:
-    > $ singularity exec --app MGDO <image> ls $APPROOT_MGDO/bin/
+    > $ singularity exec --app MGDO <image> ls /scif/apps/MGDO/bin/
+    >
 
 %appenv MGDO
     export LD_LIBRARY_PATH="/scif/apps/root/lib:/scif/apps/clhep/lib:$LD_LIBRARY_PATH"
@@ -166,10 +169,12 @@ From: centos:7
 ###########
 
 %apphelp GELATIO
+    >
     > GELATIO - GERDA analysis package (https://github.com/mppmu/gelatio)
     >
     > To list the available executables run:
-    > $ singularity exec --app GELATIO <image> ls $APPROOT_GELATIO/bin/
+    > $ singularity exec --app GELATIO <image> ls /scif/apps/GELATIO/bin/
+    >
 
 %appenv GELATIO
     export LD_LIBRARY_PATH="/scif/apps/root/lib:/scif/apps/clhep/lib:/scif/apps/MGDO/lib:$LD_LIBRARY_PATH"
@@ -197,11 +202,13 @@ From: centos:7
 ##############
 
 %apphelp databricxx
+    >
     > DatABriCxx - Modular C++11/ROOT-6 Data Analysis Framework (https://github.com/databricxx/databricxx)
     > dependency for GERDA-ADA
     >
     > To list the available executables run:
-    > $ singularity exec --app databricxx <image> ls $APPROOT_databricxx/bin/
+    > $ singularity exec --app databricxx <image> ls /scif/apps/databricxx/bin/
+    >
 
 %appenv databricxx
     export LD_LIBRARY_PATH="/scif/apps/root/lib:$LD_LIBRARY_PATH"
@@ -224,10 +231,12 @@ From: centos:7
 #############
 
 %apphelp gerda-ada
+    >
     > GERDA-ADA - GERDA Advanced Data Analysis Package (https://github.com/mppmu/gerda-ada)
     >
     > To list the available executables run:
-    > $ singularity exec --app gerda-ada <image> ls $APPROOT_gerda-ada/bin/
+    > $ singularity exec --app gerda-ada <image> ls /scif/apps/gerda-ada/bin/
+    >
 
 %appenv gerda-ada
     export LD_LIBRARY_PATH="/scif/apps/root/lib:/scif/apps/clhep/lib:/scif/apps/MGDO/lib:/scif/apps/GELATIO/lib:/scif/apps/databricxx/lib:$LD_LIBRARY_PATH"
@@ -251,10 +260,11 @@ From: centos:7
 ########
 
 %apphelp MaGe
+    >
     > MaGe - Majorana GERDA Simulation software (https://github.com/mppmu/mage)
     >
     > To list the available executables run:
-    >     $ singularity exec --app MaGe <image> ls $APPROOT_MaGe/bin/
+    >     $ singularity exec --app MaGe <image> ls /scif/apps/MaGe/bin/
     >
     > A 'singularity --app MaGe <image>' command launches an interactive MaGe session, to use a macro
     > file use the command
@@ -270,6 +280,7 @@ From: centos:7
     > "--bind /path/to/src/:/common" to your singularity command. The 'gerdageometry' folder
     > ships with the MaGe source code, while the 'gerda-ada-sandbox' folder can be cloned from
     > https://github.com/mppmu/gerda-ada-sandbox.
+    >
 
 %appenv MaGe
     export LD_LIBRARY_PATH="/scif/apps/root/lib:/scif/apps/clhep/lib:/scif/apps/geant4/lib:/scif/apps/geant4/lib64:/scif/apps/MGDO/lib:$LD_LIBRARY_PATH"
@@ -302,10 +313,12 @@ From: centos:7
 #####################
 
 %apphelp gerda-ana-sandbox
+    >
     > The gerda-ana-sandbox repository is not included in this image, this app only sets the environment.
     > The GERDA_ANA_SANDBOX variable points to '/common/sw-other/gerda-ana-sandbox', so be sure
     > to have downloaded the repository on your PC and mounted on the singularity containter with
     > the requested folder structure.
+    >
 
 %appenv gerda-ana-sandbox
     export GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox"

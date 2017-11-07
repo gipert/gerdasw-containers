@@ -43,12 +43,22 @@ Compressed images can be build up with:
 $ cd gerdasw-containers # no joke, do it
 $ sudo singularity build gerdasw.sqsh Singularityfile
 ```
-Then try for example `singularity help gerdasw.sqsh` or `singularity run gerdasw.sqsh` to start using the
+Singularity will perform the build in a hidden directory under `/tmp` and then compress it in a squash-fs format to produce the `gerdasw.sqsh` image. Also, the building of the single packages is done under `/tmp` (see `Singularityfile`), so make sure to have enough disk space. If not, you can first perform the build in another partition:
+```shell
+$ sudo singularity build --sandbox <custom/dir> Singularityfile
+```
+And then compress the result:
+```shell
+$ sudo singularity build gerdasw.sqsh <custom/dir>
+```
+Additionally you can also delete the build directories step-by-step in `/tmp` by uncommenting the relevant lines in `Singularityfile` (But this will cause a complete reprocessing upon a new build attempt).
+
+Try for example `singularity help gerdasw.sqsh` or `singularity run gerdasw.sqsh` to start using the
 container, for other useful commands (e.g. those reported above for Docker) refer to the [Singularity docs](http://singularity.lbl.gov/quickstart)
 or type `singularity help`.
 
-## Enable X11 forwarding
-### Mac OSX (Docker):
+## Enable X11 forwarding in Docker containers
+### Mac OSX:
 Make sure you have XQuartz installed and running. First get your IP address:
 ```shell
 $ ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
@@ -63,5 +73,5 @@ $ docker run -e DISPLAY=$ip:0 gerda-sw interface
 ```
 **N.B.**: the `xhost +$ip` instruction grants access to the X server for the specified `ip` address. This could expose your system to security holes if, for example, your IP address gets renewed or you switch network and forget to remove the old IP from the `xhost` list. Take care of your `xhost` list by cleaning it from untrusted IPs (use `xhost -[name]`)!
 
-### On a remote host (Docker):
+### On a remote host:
 Take a look to the Wiki [here](https://github.com/luigipertoldi/gerda-sw-docker/wiki/The-Docker-local-hub#running-a-container).

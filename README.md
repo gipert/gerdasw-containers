@@ -8,7 +8,7 @@
 * Remeber to update `%applabels` sections in `Singularityfile` when updating submodules
 
 ## Use instructions
-**Clone with `--recursive`** (note: requires access to GERDA's private repositories).
+__Clone with `--recursive`__ (note: requires access to GERDA's private repositories).
 
 ### Docker containers
 Images can be build up with:
@@ -47,7 +47,7 @@ Singularity will perform the build in a hidden directory under `/tmp` and then c
 ```shell
 $ sudo singularity build --sandbox <custom/dir> Singularityfile
 ```
-And then compress the result:
+And compress the result later:
 ```shell
 $ sudo singularity build gerdasw.sqsh <custom/dir>
 ```
@@ -56,6 +56,15 @@ Additionally you can also delete the build directories step-by-step in `/tmp` by
 Try for example `singularity help gerdasw.sqsh` or `singularity run gerdasw.sqsh` to start using the
 container, for other useful commands (e.g. those reported above for Docker) refer to the [Singularity docs](http://singularity.lbl.gov/quickstart)
 or type `singularity help`.
+
+You can get informations upon about software included within the container typing
+```shell
+$ singularity inspect --app <app-name> gerdasw.sqsh
+```
+Or specific help with
+```shell
+$ singularity help --app <app-name> gerdasw.sqsh
+```
 
 ## Enable X11 forwarding in Docker containers
 ### Mac OSX:
@@ -75,3 +84,6 @@ $ docker run -e DISPLAY=$ip:0 gerda-sw interface
 
 ### On a remote host:
 Take a look to the Wiki [here](https://github.com/luigipertoldi/gerda-sw-docker/wiki/The-Docker-local-hub#running-a-container).
+
+### On Linux:
+The above script should work, test needed.

@@ -7,12 +7,12 @@
 [submodule "gerda-ada"]
 	path = gerda-ada
 	url = git@github.com:mppmu/gerda-ada.git
-[submodule "MaGe"]
-	path = MaGe
-	url = git@github.com:mppmu/MaGe.git
 [submodule "databricxx"]
 	path = databricxx
 	url = git@github.com:databricxx/databricxx.git
 [submodule "local-env-skeleton"]
 	path = local-env-skeleton
 	url = git@github.com:luigipertoldi/local-env-skeleton.git
+[submodule "MaGe"]
+	path = MaGe
+	url = https://github.com/luigipertoldi/MaGe

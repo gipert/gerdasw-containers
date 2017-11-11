@@ -87,3 +87,14 @@ Take a look to the Wiki [here](https://github.com/luigipertoldi/gerda-sw-docker/
 
 ### On Linux:
 The above script should work, test needed.
+
+## decay0 Docker container
+Use the `Dockerfile_decay0` to build up a Docker container with cernlib and decay0:
+```shell
+$ sudo docker build -f Dockerfile_decay0 . -t decay0
+```
+Then run it with
+```shell
+$ sudo docker run --rm decay0
+```
+N.B. write the output file in an external mounted volume!

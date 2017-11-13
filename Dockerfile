@@ -5,14 +5,16 @@ LABEL maintainer="luigi.pertoldi@pd.infn.it"
 USER root
 WORKDIR /root
 
-RUN yum install -y epel-release deltarpm \
+RUN yum update -y && \
+	yum install -y epel-release deltarpm \
 	&& yum groupinstall -y "Development Tools" \
 	&& yum install -y \
-		htop zsh vim wget cmake \
+		htop zsh vim wget cmake3 \
 		expat-devel xerces-c-devel fftw-devel \
 		libXmu-devel libXi-devel libX11-devel libXext-devel libXft-devel libXpm-devel \
 		libzip-devel mesa-libGLU-devel \
-		libjpeg-devel libpng-devel
+		libjpeg-devel libpng-devel \
+	&& ln -s /usr/bin/cmake3 /usr/bin/cmake
 
 RUN dbus-uuidgen > /etc/machine-id
 
@@ -33,11 +35,13 @@ RUN mkdir -p /opt/root \
 # it will be installed in /opt/clhep
 
 RUN mkdir -p src \
-	&& wget -O- http://proj-clhep.web.cern.ch/proj-clhep/DISTRIBUTION/tarFiles/clhep-2.1.3.1.tgz \
+	&& wget -O- http://proj-clhep.web.cern.ch/proj-clhep/DISTRIBUTION/tarFiles/clhep-2.3.4.4.tgz \
 	| tar --strip-components 2 -xz -C "src" \
 	&& mkdir -p build \
 	&& cd build \
-	&& cmake -DCMAKE_INSTALL_PREFIX="/opt/clhep" --fail-on-missing ../src \
+	&& cmake -DCMAKE_INSTALL_PREFIX="/opt/clhep" \
+		-DCMAKE_CXX_FLAGS=-std=c++11 \
+		--fail-on-missing ../src \
 	&& cmake --build . -- -j"$(nproc)" \
 	&& mkdir -p /opt/clhep \
 	&& make install \
@@ -48,27 +52,28 @@ RUN mkdir -p src \
 
 ENV PATH="/opt/geant4/bin:/opt/clhep/bin:$PATH" \
 	LD_LIBRARY_PATH="/opt/geant4/lib64:/opt/clhep/lib:$LD_LIBRARY_PATH" \
-	G4LEDATA="/opt/geant4/share/Geant4-9.6.4/data/G4EMLOW6.32" \
-	G4LEVELGAMMADATA="/opt/geant4/share/Geant4-9.6.4/data/PhotonEvaporation2.3" \
-	G4NEUTRONHPDATA="/opt/geant4/share/Geant4-9.6.4/data/G4NDL4.2" \
-	G4NEUTRONXSDATA="/opt/geant4/share/Geant4-9.6.4/data/G4NEUTRONXS1.2" \
-	G4PIIDATA="/opt/geant4/share/Geant4-9.6.4/data/G4PII1.3" \
-	G4RADIOACTIVEDATA="/opt/geant4/share/Geant4-9.6.4/data/RadioactiveDecay3.6" \
-	G4REALSURFACEDATA="/opt/geant4/share/Geant4-9.6.4/data/RealSurface1.0" \
-	G4SAIDXSDATA="/opt/geant4/share/Geant4-9.6.4/data/G4SAIDDATA1.1"
+	G4LEDATA="/opt/geant4/share/Geant4-10.3.3/data/G4EMLOW6.32" \
+	G4LEVELGAMMADATA="/opt/geant4/share/Geant4-10.3.3/data/PhotonEvaporation2.3" \
+	G4NEUTRONHPDATA="/opt/geant4/share/Geant4-10.3.3/data/G4NDL4.2" \
+	G4NEUTRONXSDATA="/opt/geant4/share/Geant4-10.3.3/data/G4NEUTRONXS1.2" \
+	G4PIIDATA="/opt/geant4/share/Geant4-10.3.3/data/G4PII1.3" \
+	G4RADIOACTIVEDATA="/opt/geant4/share/Geant4-10.3.3/data/RadioactiveDecay3.6" \
+	G4REALSURFACEDATA="/opt/geant4/share/Geant4-10.3.3/data/RealSurface1.0" \
+	G4SAIDXSDATA="/opt/geant4/share/Geant4-10.3.3/data/G4SAIDDATA1.1"
 
 RUN mkdir -p /opt/geant4 \
-	&& wget -O- https://geant4.web.cern.ch/geant4/support/source/geant4.9.6.p04.tar.gz \
+	&& wget -O- http://cern.ch/geant4/support/source/geant4.10.03.p03.tar.gz \
 	| tar --strip-components 1 -xz -C "src" \
 	&& cd build \
 	&& cmake -DCMAKE_INSTALL_PREFIX="/opt/geant4" \
+		-DGEANT4_BUILD_CXXSTD=c++11 \
 		-DGEANT4_USE_SYSTEM_CLHEP=ON \
 		-DCLHEP_ROOT_DIR=/opt/clhep \
 		-DGEANT4_USE_GDML=ON \
 		-DGEANT4_USE_OPENGL_X11=ON \
-		-DGEANT4_USE_RAYTRACER_X11=ON \
+#		-DGEANT4_USE_RAYTRACER_X11=ON \
 		-DGEANT4_INSTALL_DATA=ON \
-		-DGEANT4_INSTALL_EXAMPLES=ON \
+		-DGEANT4_BUILD_MULTITHREADED=ON \
 		--fail-on-missing \
 		../src \
 	&& cmake --build . -- -j"$(nproc)" \
@@ -84,10 +89,10 @@ RUN mkdir -p /opt/geant4 \
 COPY MGDO /root/MGDO
 WORKDIR /root/MGDO
 RUN mkdir -p /opt/gerdasw \
-	&& ./configure --enable-tam --enable-streamers --prefix="/opt/gerdasw"\
-	&& make -j"$(nproc)" || true \
-	&& make -j"$(nproc)" || true \
-	&& make -j"$(nproc)" || true \
+	&& ./configure --enable-tam --enable-streamers CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw"\
+	&& make -j"$(nproc)" -k || true \
+	&& make -j"$(nproc)" -k || true \
+	&& make -j"$(nproc)" -k || true \
 	&& make && make install \
 	&& rm -rf /root/MGDO
 
@@ -98,31 +103,31 @@ ENV PATH="/opt/gerdasw/bin:$PATH" \
 
 COPY GELATIO /root/GELATIO
 WORKDIR /root/GELATIO
-RUN ./configure --prefix="/opt/gerdasw"\
-	&& make -j"$(nproc)" || true \
-	&& make -j"$(nproc)" || true \
-	&& make -j"$(nproc)" || true \
+RUN ./configure CXX='g++ -std=c++11' --prefix="/opt/gerdasw"\
+	&& make -j"$(nproc)" -k || true \
+	&& make -j"$(nproc)" -k || true \
+	&& make -j"$(nproc)" -k || true \
 	&& make && make install \
 	&& cd /root && rm -rf /root/GELATIO
 
 COPY databricxx /root/databricxx
 WORKDIR /root/databricxx
-RUN ./autogen.sh && ./configure --prefix="/opt/gerdasw" \
+RUN ./autogen.sh && ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" && make install \
 	&& cd /root && rm -rf /root/databricxx
 
 COPY gerda-ada /root/gerda-ada
 WORKDIR /root/gerda-ada
-RUN ./autogen.sh && ./configure --prefix="/opt/gerdasw" \
+RUN ./autogen.sh && ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" \
 	&& make -j"$(nproc)" && make install \
 	&& cd /root && rm -rf /root/gerda-ada
 
 COPY MaGe /root/MaGe
 WORKDIR /root/MaGe
-RUN ./configure --prefix="/opt/gerdasw" \
-	&& make -j"$(nproc)" || true \
-	&& make -j"$(nproc)" || true \
-	&& make -j"$(nproc)" || true \
+RUN ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" \
+	&& make -j"$(nproc)" -k || true \
+	&& make -j"$(nproc)" -k || true \
+	&& make -j"$(nproc)" -k || true \
 	&& make && make install \
 	&& rm -rf /root/MaGe
 

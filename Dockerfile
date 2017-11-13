@@ -144,6 +144,7 @@ RUN ./install-sh
 WORKDIR /root
 RUN rm -rf .gitconfig local-env-skeleton \
 	&& sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc \
-	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc
+	&& sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc \
+	&& sed -i '29 i POWERLEVEL9K_HOST_TEMPLATE="gerda-sw"' .zshrc
 
 CMD /bin/zsh

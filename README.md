@@ -14,16 +14,16 @@ __Clone with `--recursive`__ (note: requires access to GERDA's private repositor
 Images can be build up with:
 ```shell
 $ cd gerdasw-containers
-$ sudo docker build . -t gerdasw
+$ sudo docker build --rm . -t gerdasw
 ```
 A call to `docker run gerdasw` with no arguments spawns a zsh shell by default:
 ```shell
 $ sudo docker run \
-  -i -t \
+  -i -t --rm \
   -h gerdasw \
   gerdasw
 ```
-The `-i` and `-t` flags allow to start an interactive session inside a new tty (mandatory to spawn the shell). Optional: `-h gerdasw` sets the container's hostname to 'gerdasw'.
+The `-i` and `-t` flags allow to start an interactive session inside a new tty (mandatory to spawn the shell). The `--rm` flag removes the container after stopping it. Optional: `-h gerdasw` sets the container's hostname to 'gerdasw'.
 
 Any other custom command can be injected inside the container, e.g.:
 ```shell

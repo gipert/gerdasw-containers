@@ -113,7 +113,7 @@ RUN ./configure CXX='g++ -std=c++11' --prefix="/opt/gerdasw" && \
 #    make -j"$(nproc)" -k || true && \
 #    make -j"$(nproc)" -k || true && \
 #    make -j"$(nproc)" -k || true && \
-    make && make install && \
+    make && make install
 
 ENV GELATIODIR="/opt/gerdasw/src/GELATIO"
 

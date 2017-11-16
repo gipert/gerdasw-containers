@@ -34,6 +34,10 @@ RUN mkdir -p /opt/root && \
 # compile and install CLHEP
 # it will be installed in /opt/clhep
 
+ENV CLHEP_BASE_DIR="/opt/clhep" \
+    CLHEP_INCLUDE_DIR="/opt/clhep/include" \
+    CLHEP_LIB_DIR="/opt/clhep/lib"
+
 RUN mkdir -p src && \
     wget -O- http://proj-clhep.web.cern.ch/proj-clhep/DISTRIBUTION/tarFiles/clhep-2.3.4.4.tgz \
     | tar --strip-components 2 -xz -C "src" && \
@@ -88,54 +92,56 @@ RUN mkdir -p /opt/geant4 && \
 #
 # the software will be installed in /opt/gerdasw
 
-COPY MGDO /root/MGDO
-WORKDIR /root/MGDO
+COPY MGDO /opt/gerdasw/src/MGDO
+WORKDIR /opt/gerdasw/src/MGDO
 RUN mkdir -p /opt/gerdasw && \
     ./configure --enable-tam --enable-streamers CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" && \
-    make -j"$(nproc)" -k || true && \
-    make -j"$(nproc)" -k || true && \
-    make -j"$(nproc)" -k || true && \
-    make && make install && \
-    rm -rf /root/MGDO
+    make -j"$(nproc)" || true && \
+    make -j"$(nproc)" || true && \
+    make -j"$(nproc)" || true && \
+    make && make install
 
 # make the software visible
 
 ENV PATH="/opt/gerdasw/bin:$PATH" \
-    LD_LIBRARY_PATH="/opt/gerdasw/lib:$LD_LIBRARY_PATH"
+    LD_LIBRARY_PATH="/opt/gerdasw/lib:$LD_LIBRARY_PATH" \
+    MGDODIR="/opt/gerdasw/src/MGDO"
 
-COPY GELATIO /root/GELATIO
-WORKDIR /root/GELATIO
+COPY GELATIO /opt/gerdasw/src/GELATIO
+WORKDIR /opt/gerdasw/src/GELATIO
 RUN ./configure CXX='g++ -std=c++11' --prefix="/opt/gerdasw" && \
-    make -j"$(nproc)" -k || true && \
-    make -j"$(nproc)" -k || true && \
-    make -j"$(nproc)" -k || true && \
+#    make -j"$(nproc)" -k || true && \
+#    make -j"$(nproc)" -k || true && \
+#    make -j"$(nproc)" -k || true && \
     make && make install && \
-    cd /root && rm -rf /root/GELATIO
 
-COPY databricxx /root/databricxx
-WORKDIR /root/databricxx
+ENV GELATIODIR="/opt/gerdasw/src/GELATIO"
+
+COPY databricxx /opt/gerdasw/src/databricxx
+WORKDIR /opt/gerdasw/src/databricxx
 RUN ./autogen.sh && ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" && \
     make -j"$(nproc)" && make install && \
-    cd /root && rm -rf /root/databricxx
+    rm -rf /opt/gerdasw/src/databricxx
 
-COPY gerda-ada /root/gerda-ada
-WORKDIR /root/gerda-ada
+COPY gerda-ada /opt/gerdasw/src/gerda-ada
+WORKDIR /opt/gerdasw/src/gerda-ada
 RUN ./autogen.sh && ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" && \
     make -j"$(nproc)" && make install && \
-    cd /root && rm -rf /root/gerda-ada
+    rm -rf /opt/gerdasw/src/gerda-ada
 
-COPY MaGe /root/MaGe
-WORKDIR /root/MaGe
+COPY MaGe /opt/gerdasw/src/MaGe
+WORKDIR /opt/gerdasw/src/MaGe
 RUN ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" && \
-    make -j"$(nproc)" -k || true && \
-    make -j"$(nproc)" -k || true && \
-    make -j"$(nproc)" -k || true && \
+    make -j"$(nproc)" || true && \
+    make -j"$(nproc)" || true && \
+    make -j"$(nproc)" || true && \
     make && make install && \
-    rm -rf /root/MaGe
+    rm -rf /opt/gerdasw/src/MaGe
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \
     MGGERDAGEOMETRY="/common/sw-other/gerdageometry" \
-    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
+    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles" \
+    MU_CAL="/common/sw-other/gerda-metadata/config/_aux/geruncfg"
 
 # install dotfiles
 

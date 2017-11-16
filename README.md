@@ -3,41 +3,54 @@
 ### Notes
 * MaGe is checked out at `GERDAphaseII` branch
 * Repositories which need constant updates (like e.g. metadata repositories) are not included in the images. They can be included e.g. inside an externally mounted volume (see below)
-* Let's take advantage of git! Open a new branch if you want to provide an image with different features
-* Use git tags to distinguish between software versions?
-* Remeber to update `%applabels` sections in `Singularityfile` when updating submodules
+* git branches are used to distiguish between software versions
+    * `g4.9.6` → CLHEP_v2.1.3.1 and GEANT4_v9.6.p04 (master)
+    * `g4.10.3` → CLHEP_v2.3.4.4 and GEANT4_v10.3.p03 (geant4_10.3.p03)
+* Remeber to update `%applabels` sections in `Singularityfile`s when updating submodules
 
-## Use instructions
-__Clone with `--recursive`__ (note: requires access to GERDA's private repositories).
-
-### Docker containers
-Images can be build up with:
+## Docker containers
+All the images of this repository can be found at <https://baltig.infn.it/gerda/gerdasw-containers/container_registry>. To download them you must be registered, then you can use the following syntax:
 ```shell
-$ cd gerdasw-containers
-$ sudo docker build --rm . -t gerdasw
+$ sudo docker login -u <username> -p <password> baltig.infn.it:4567
+$ sudo docker pull baltig.infn.it:4567/gerda/gerdasw-containers/<image>:<tag>
 ```
-A call to `docker run gerdasw` with no arguments spawns a zsh shell by default:
+Let's say you have pulled the `gerda-sw:g4.10.3` image, then a call to `docker run gerda-sw:g4.10.3` with no arguments spawns a zsh shell by default:
 ```shell
 $ sudo docker run \
   -i -t --rm \
-  -h gerdasw \
-  gerdasw
+  -h gerda-sw \
+  gerda-sw:g4.10.3
 ```
-The `-i` and `-t` flags allow to start an interactive session inside a new tty (mandatory to spawn the shell). The `--rm` flag removes the container after stopping it. Optional: `-h gerdasw` sets the container's hostname to 'gerdasw'.
+The `-i` and `-t` flags allow to start an interactive session inside a new tty (mandatory to spawn the shell). The `--rm` flag removes the container after stopping it. Optional: `-h gerda-sw` sets the container's hostname to 'gerda-sw'.
 
 Any other custom command can be injected inside the container, e.g.:
 ```shell
-$ sudo docker run gerdasw MaGe
+$ sudo docker run gerda-sw:g4.10.3 MaGe
 ```
 
 To mount a folder (`/path/to/src`) inside the container (mount point: `/path/to/dest`) run it with:
 ```shell
 $ sudo docker run \
   -v /path/to/src:/path/to/dest \
-  gerdasw <...>
+  gerda-sw:g4.10.3 <...>
 ```
 
-### Singularity containers
+### Building from source
+__Clone this repository with `--recursive`__ (note: requires access to GERDA's private repositories at <https://github.com/mppmu>).
+
+You must be registered on <https://baltig.infn.it/gerda> to get the prebuilded image including ROOT, CLHEP and GEANT4. Then you can save some time and build up the complete image with:
+```shell
+$ cd gerdasw-containers
+$ sudo docker build --rm . -t gerda-sw
+```
+If you are not registered on baltig, but you can access GERDA's repositories, you can still build everything up with
+```shell
+$ cd gerdasw-containers
+$ sudo docker build --rm -f Dockerfile_full . -t gerdasw
+```
+But it takes a while.
+
+## Singularity containers
 Compressed images can be build up with:
 ```shell
 $ cd gerdasw-containers # no joke, do it

@@ -16,6 +16,7 @@ From: centos:7
 
 %post
     yum update -y
+    yum install -y epel-release deltarpm
     yum groupinstall -y "Development Tools"
     yum install -y htop zsh vim wget cmake3 \
         expat-devel xerces-c-devel fftw-devel \

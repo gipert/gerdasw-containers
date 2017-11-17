@@ -33,6 +33,9 @@ From: luigipertoldi/baseos_containers:g4.10.3
 > to see what's included! For specific help use the --app flag.
 >
 
+%setup
+    mkdir -p $SINGULARITY_ROOTFS/scif/src
+
 %files
     MGDO       /scif/src/MGDO
     GELATIO    /scif/src/GELATIO

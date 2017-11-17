@@ -108,7 +108,8 @@ RUN ./configure --prefix="/opt/gerdasw" && \
 #    make -j"$(nproc)" || true && \
     make && make install
 
-ENV GELATIODIR="/opt/gerdasw/src/GELATIO"
+ENV GELATIODIR="/opt/gerdasw/src/GELATIO" \
+    MU_CAL="/common/sw-other/gerda-metadata/config/_aux/geruncfg"
 
 COPY databricxx /opt/gerdasw/src/databricxx
 WORKDIR /opt/gerdasw/src/databricxx
@@ -133,8 +134,7 @@ RUN ./configure --prefix="/opt/gerdasw" && \
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \
     MGGERDAGEOMETRY="/common/sw-other/gerdageometry" \
-    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles" \
-    MU_CAL="/common/sw-other/gerda-metadata/config/_aux/geruncfg"
+    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
 
 # install dotfiles
 

@@ -13,6 +13,3 @@
 [submodule "local-env-skeleton"]
 	path = local-env-skeleton
 	url = git@github.com:luigipertoldi/local-env-skeleton.git
-[submodule "MaGe"]
-	path = MaGe
-	url = https://github.com/luigipertoldi/MaGe

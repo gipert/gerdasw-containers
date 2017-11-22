@@ -12,7 +12,8 @@ RUN yum install -y epel-release deltarpm && \
                    libXmu-devel libXi-devel libX11-devel \
                    libXext-devel libXft-devel libXpm-devel \
                    libzip-devel mesa-libGLU-devel \
-                   libjpeg-devel libpng-devel
+                   libjpeg-devel libpng-devel \
+                   motif-devel qt-devel mesa-dri-drivers
 
 RUN dbus-uuidgen > /etc/machine-id
 
@@ -72,7 +73,8 @@ RUN mkdir -p /opt/geant4 && \
           -DGEANT4_USE_OPENGL_X11=ON \
           -DGEANT4_USE_RAYTRACER_X11=ON \
           -DGEANT4_INSTALL_DATA=ON \
-          -DGEANT4_INSTALL_EXAMPLES=ON \
+          -DGEANT4_USE_XM=ON \
+          -DGEANT4_USE_QT=ON \
           --fail-on-missing \
           ../src && \
     cmake --build . -- -j"$(nproc)" && \

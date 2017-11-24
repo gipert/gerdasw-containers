@@ -202,12 +202,21 @@ From: luigipertoldi/baseos-containers:g4.9.6
     >
 
 %appenv MaGe
+    export LD_LIBRARY_PATH="/scif/apps/geant4/lib64:/scif/apps/clhep/lib:$LD_LIBRARY_PATH"
+    export G4LEDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/G4EMLOW6.32"
+    export G4LEVELGAMMADATA="/scif/apps/geant4/share/Geant4-9.6.4/data/PhotonEvaporation2.3"
+    export G4NEUTRONHPDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/G4NDL4.2"
+    export G4NEUTRONXSDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/G4NEUTRONXS1.2"
+    export G4PIIDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/G4PII1.3"
+    export G4RADIOACTIVEDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/RadioactiveDecay3.6"
+    export G4REALSURFACEDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/RealSurface1.0"
+    export G4SAIDXSDATA="/scif/apps/geant4/share/Geant4-9.6.4/data/G4SAIDDATA1.1"
     export LD_LIBRARY_PATH="/scif/apps/root/lib:/scif/apps/clhep/lib:/scif/apps/geant4/lib:/scif/apps/geant4/lib64:/scif/apps/MGDO/lib:$LD_LIBRARY_PATH"
     export MGGERDAGEOMETRY="/common/sw-other/gerdageometry"
     export MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
 
 %apprun MaGe
-    MaGe
+    MaGe $@
 
 %appinstall MaGe
     export PATH="/scif/apps/clhep/bin:/scif/apps/geant4/bin:$PATH"

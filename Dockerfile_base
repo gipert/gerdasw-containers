@@ -13,7 +13,9 @@ RUN yum update -y && \
                    libXmu-devel libXi-devel libX11-devel \
                    libXext-devel libXft-devel libXpm-devel \
                    libzip-devel mesa-libGLU-devel \
-                   libjpeg-devel libpng-devel && \
+                   libjpeg-devel libpng-devel \
+                   motif-devel qt-devel mesa-dri-drivers \
+                   ImageMagick xorg-x11-fonts-Type1 && \
     ln -s /usr/bin/cmake3 /usr/bin/cmake
 
 RUN dbus-uuidgen > /etc/machine-id
@@ -67,7 +69,6 @@ ENV PATH="/opt/geant4/bin:/opt/clhep/bin:$PATH" \
     G4ENSDFSTATEDATA="/opt/geant4/share/Geant4-10.3.3/data/G4ENSDFSTATE2.1" \
     G4ABLADATA="/opt/geant4/share/Geant4-10.3.3/data/G4ABLA3.0"
 
-
 RUN mkdir -p /opt/geant4 && \
     wget -O- http://cern.ch/geant4/support/source/geant4.10.03.p03.tar.gz \
     | tar --strip-components 1 -xz -C "src" && \
@@ -79,6 +80,8 @@ RUN mkdir -p /opt/geant4 && \
           -DGEANT4_USE_GDML=ON \
           -DGEANT4_USE_OPENGL_X11=ON \
           -DGEANT4_USE_RAYTRACER_X11=ON \
+          -DGEANT4_USE_XM=ON \
+          -DGEANT4_USE_QT=ON \
           -DGEANT4_INSTALL_DATA=ON \
           --fail-on-missing \
           ../src && \

@@ -54,7 +54,7 @@ RUN ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" && \
     make -j"$(nproc)" || true && \
     make -j"$(nproc)" || true && \
     make -j"$(nproc)" || true && \
-    make && make install && \
+    make && make install
 #    rm -rf /opt/gerdasw/src/MaGe
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \

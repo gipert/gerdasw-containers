@@ -13,7 +13,8 @@ RUN yum install -y epel-release deltarpm && \
                    libXext-devel libXft-devel libXpm-devel \
                    libzip-devel mesa-libGLU-devel \
                    libjpeg-devel libpng-devel \
-                   motif-devel qt-devel mesa-dri-drivers
+                   motif-devel qt-devel mesa-dri-drivers \
+                   ImageMagick xorg-x11-fonts-Type1
 
 RUN dbus-uuidgen > /etc/machine-id
 

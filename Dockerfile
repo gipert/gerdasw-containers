@@ -54,8 +54,8 @@ RUN ./configure --prefix="/opt/gerdasw" && \
     make -j"$(nproc)" || true && \
     make -j"$(nproc)" || true && \
     make -j"$(nproc)" || true && \
-    make && make install && \
-    rm -rf /opt/gerdasw/src/MaGe
+    make && make install
+#    rm -rf /opt/gerdasw/src/MaGe
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \
     MGGERDAGEOMETRY="/common/sw-other/gerdageometry" \
@@ -71,6 +71,6 @@ WORKDIR /root
 RUN rm -rf .gitconfig local-env-skeleton && \
     sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc && \
     sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc && \
-    sed -i '29 i POWERLEVEL9K_HOST_TEMPLATE="gerda-sw"' .zshrc
+    sed -i '29 i POWERLEVEL9K_HOST_TEMPLATE="gerdasw.g4.9.6"' .zshrc
 
 CMD /bin/zsh

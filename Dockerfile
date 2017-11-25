@@ -59,7 +59,8 @@ RUN ./configure CXXFLAGS='-std=c++11' --prefix="/opt/gerdasw" && \
 
 ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \
     MGGERDAGEOMETRY="/common/sw-other/gerdageometry" \
-    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
+    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles" \
+    AllowForHeavyElements=1
 
 # install dotfiles
 

@@ -1,4 +1,4 @@
-FROM baltig.infn.it:4567/gerda/gerdasw-containers/gerda-base:g4.9.6
+FROM gipert/baseos-containers:g4.9.6
 
 LABEL maintainer="luigi.pertoldi@pd.infn.it"
 

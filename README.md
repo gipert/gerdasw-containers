@@ -6,7 +6,7 @@
 * git branches are used to distiguish between software versions
     * `g4.9.6` → CLHEP_v2.1.3.1 and GEANT4_v9.6.p04 (master)
     * `g4.10.3` → CLHEP_v2.3.4.4 and GEANT4_v10.3.p03 (geant4_10.3.p03)
-* Remeber to update `%applabels` sections in `Singularityfile`s when updating submodules
+* Remeber to update `%applabels` sections in `Singularityfile`s when updating submodules TODO: script
 
 ## Docker containers
 All the images of this repository can be found at <https://baltig.infn.it/gerda/gerdasw-containers/container_registry>. To download them you must be registered, then you can use the following syntax:

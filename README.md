@@ -52,6 +52,8 @@ common/
 ```
 where the `gerdageometry` can be found in the MaGe source repo. The log in and check that `MGGERDAGEOMETRY`, `MGGENERATORDATA` and `MU_CAL` are set and point to existing locations. You could use the `common/` location to store files that you want to preserve (e.g. MaGe macro files or output).
 
+**EDIT**: With the recent MaGe tag (`g4.10.3/v2.0` here) now `MGGERDAGEOMETRY` and `MGGENERATORDATA` point to `gerdageometry/` and `generators/data/` inside the MaGe source direcotry provided within the container under `/opt/src/MaGe/`, so there's no more need to manually provide `gerda-ana-sandbox` and `gerdageometry`.
+
 ### Building from source
 __Clone this repository with `--recursive`__ (note: requires access to GERDA's private repositories at <https://github.com/mppmu>).
 
@@ -62,6 +64,8 @@ $ sudo docker build --rm . -t gerdasw:<tag>
 ```
 
 ## Singularity containers
+All the images of this repository are hosted at the LNGS cluster under `/nfs/gerda5/var/gerda-simulations/`.
+
 Compressed images can be build up with:
 ```shell
 $ cd gerdasw-containers # no joke, do it

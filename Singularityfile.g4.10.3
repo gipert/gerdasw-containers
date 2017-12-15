@@ -212,8 +212,8 @@ From: gipert/baseos-containers:g4.10.3
     export G4ENSDFSTATEDATA="/scif/apps/geant4/share/Geant4-10.3.3/data/G4ENSDFSTATE2.1"
     export G4ABLADATA="/scif/apps/geant4/share/Geant4-10.3.3/data/G4ABLA3.0"
     export LD_LIBRARY_PATH="/scif/apps/root/lib:/scif/apps/clhep/lib:/scif/apps/geant4/lib:/scif/apps/geant4/lib64:/scif/apps/MGDO/lib:$LD_LIBRARY_PATH"
-    export MGGERDAGEOMETRY="/common/sw-other/gerdageometry"
-    export MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
+    export MGGERDAGEOMETRY="/scif/src/MaGe/gerdageometry"
+    export MGGENERATORDATA="/scif/src/MaGe/generators/data"
     export AllowForHeavyElements=1
 
 %apprun MaGe
@@ -231,11 +231,11 @@ From: gipert/baseos-containers:g4.10.3
     make -j"$(nproc)" -k || true
     make -j"$(nproc)" -k || true
     make && make install
-    rm -rf /scif/src/MaGe
 
 %applabels MaGe
+    MaGe-tag GERDAPhaseII-Dec2017
     MaGe-branch GERDAPhaseII_g4.10
-    MaGe-commit 81ed0d32
+    MaGe-commit 9fe03caa
 
 #####################
 # GERDA-ana-sandbox #

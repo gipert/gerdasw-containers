@@ -10,9 +10,9 @@
 
 ### TODO:
 - [ ] Move source code from `/scif/src/` to `/scif/<app>/src` in Singularity containers
-- [ ] Update all with the new MaGe tag
+- [x] Update all with the new MaGe tag
 - [ ] Script to generate Singularity files with correct submodule versioning
-- [ ] Find a place to store prebuilded Singularity images
+- [x] Find a place to store prebuilded Singularity images: `LNGS-cluster@/nfs/gerda5/var/gerda-simulations/`
 
 ## Docker containers
 All the images of this repository can be found at <https://baltig.infn.it/gerda/gerdasw-containers/container_registry>. To download them you must be registered (ask [luigi.pertoldi@pd.infn.it](mailto:luigi.pertoldi@pd.infn.it)), then you can use the following syntax:

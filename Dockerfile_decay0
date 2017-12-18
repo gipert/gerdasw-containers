@@ -30,4 +30,5 @@ RUN gfortran -ffixed-line-length-80 -c decay0.for -O && \
     gfortran decay0.o -o decay0 -O -L/cern/2005/lib -lgraflib -lpacklib -lmathlib -lkernlib && \
     rm -f core *.o
 
+WORKDIR /data
 CMD /decay0/decay0

@@ -61,16 +61,5 @@ ENV GERDA_ANA_SANDBOX="/common/sw-other/gerda-ana-sandbox" \
     MGGERDAGEOMETRY="/common/sw-other/gerdageometry" \
     MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
 
-# install dotfiles
-
-COPY local-env-skeleton /root/local-env-skeleton
-WORKDIR /root/local-env-skeleton
-RUN ./install-sh
-
-WORKDIR /root
-RUN rm -rf .gitconfig local-env-skeleton && \
-    sed -i '/ZSH=<.../c\ZSH=/root/.oh-my-zsh' .zshrc && \
-    sed -i '/DEFAULT_USER="<...>"/c\DEFAULT_USER=root' .zshrc && \
-    sed -i '29 i POWERLEVEL9K_HOST_TEMPLATE="gerdasw.g4.9.6"' .zshrc
-
+WORKDIR /data
 CMD /bin/zsh

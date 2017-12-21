@@ -189,16 +189,6 @@ From: gipert/baseos-containers:g4.10.3
     >     $ singularity exec --app MaGe <image> MaGe <macro_file>
     > and be sure to put your macro file in a location which is visible to the container.
     >
-    > The two MGGENERATORDATA and MGGERDAGEOMETRY variables needed to MaGe currently point to
-    >
-    >    MGGERDAGEOMETRY="/common/sw-other/gerdageometry"
-    >    MGGENERATORDATA="/common/sw-other/gerda-ana-sandbox/BackgroundModel/MaGe_Datafiles"
-    >
-    > so be sure to have mounted the requested folder structure under /common appending the
-    > "--bind /path/to/src/:/common" to your singularity command. The 'gerdageometry' folder
-    > ships with the MaGe source code, while the 'gerda-ada-sandbox' folder can be cloned from
-    > https://github.com/mppmu/gerda-ada-sandbox.
-    >
 
 %appenv MaGe
     export G4LEDATA="/scif/apps/geant4/share/Geant4-10.3.3/data/G4EMLOW6.50"

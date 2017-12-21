@@ -10,9 +10,6 @@
 [submodule "databricxx"]
 	path = databricxx
 	url = git@github.com:databricxx/databricxx.git
-[submodule "local-env-skeleton"]
-	path = local-env-skeleton
-	url = git@github.com:luigipertoldi/local-env-skeleton.git
 [submodule "MaGe"]
 	path = MaGe
 	url = https://github.com/mppmu/MaGe

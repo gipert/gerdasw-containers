@@ -4,12 +4,12 @@
 [submodule "GELATIO"]
 	path = GELATIO
 	url = git@github.com:mppmu/GELATIO.git
-[submodule "gerda-ada"]
-	path = gerda-ada
-	url = git@github.com:mppmu/gerda-ada.git
 [submodule "databricxx"]
 	path = databricxx
 	url = git@github.com:databricxx/databricxx.git
 [submodule "MaGe"]
 	path = MaGe
 	url = https://github.com/mppmu/MaGe
+[submodule "gerda-ada"]
+	path = gerda-ada
+	url = git@github.com:mppmu/gerda-ada.git

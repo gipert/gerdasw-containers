@@ -45,10 +45,10 @@ $ sudo docker run \
 **Important**: to make the software fully work inside the container you must mount the following folder structure under `/common`:
 ```
 common/
-  '-- sw-other/
-        |-- gerdageometry/
-        |-- gerda-metadata/
-        '-- gerda-ana-sandbox/
+  └── sw-other/
+        │── gerdageometry/
+        │── gerda-metadata/
+        └── gerda-ana-sandbox/
 ```
 where the `gerdageometry` can be found in the MaGe source repo. The log in and check that `MGGERDAGEOMETRY`, `MGGENERATORDATA` and `MU_CAL` are set and point to existing locations. You could use the `common/` location to store files that you want to preserve (e.g. MaGe macro files or output).
 

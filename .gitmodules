@@ -9,7 +9,7 @@
 	url = git@github.com:databricxx/databricxx.git
 [submodule "MaGe"]
 	path = MaGe
-	url = https://github.com/mppmu/MaGe
+	url = git@github.com:mppmu/MaGe.git
 [submodule "gerda-ada"]
 	path = gerda-ada
 	url = git@github.com:mppmu/gerda-ada.git
